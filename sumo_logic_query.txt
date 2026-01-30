@@ -1,0 +1,6 @@
+_sourceCategory=prod/web/api
+| parse regex "(?<raw_log>\{.*?\})" multi
+| json field=raw_log "url", "response_time", "_sourceHost"
+| where url = "/api/data"
+| where response_time > 3
+| count by _sourceHost
